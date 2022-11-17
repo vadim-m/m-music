@@ -5,12 +5,222 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="./img/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon/favicon-16x16.png">
+  <link rel="manifest" href="./img/favicon/site.webmanifest">
+  <link rel="mask-icon" href="./img/favicon/safari-pinned-tab.svg" color="#333333">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#333333">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
   <title>M-Music</title>
 </head>
 
 <body>
-  <h1>Project init!</h1>
-  <img src="./img/2.jpg" alt="2">
+  <div class="wrapper">
+
+    <header class="header">
+      <h1 class="visually-hidden">M-music project Main H1</h1>
+      <div class="header__container container">
+        <img class="header__logo" src="./img/icons/logo.svg" alt="M-music logo">
+        <form class="header__search search">
+          <input class="search__input" type="search">
+          <button class="search__btn">
+            <img class="search__btn-icon" src="./img/icons/search.svg" alt="search button">
+          </button>
+        </form>
+        <button class="searc__favorites-btn">
+          <img class="searc__favorites-icon" src="./img/icons/favorites.svg" alt="favorites button">
+        </button>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <section class="catalog">
+        <h2 class="visually-hidden">Tracklist</h2>
+        <div class="catalog__container container">
+          <ul class="catalog__list">
+            <li class="catalog__item">
+              <button class="catalog__track track">
+                <div class="track__cover-wrap">
+                  <img class="track__cover" src="./img/covers/cover1.jpg" alt="The Weeknd - Save your tears">
+                </div>
+                <div class="track__info">
+                  <h4 class="track__title">Save your tears</h4>
+                  <p class="track__artist">The Weeknd</p>
+                </div>
+              </button>
+            </li>
+            <li class="catalog__item">
+              <button class="catalog__track track">
+                <div class="track__cover-wrap">
+                  <img class="track__cover" src="./img/covers/cover2.jpg" alt="Imagine Dragons - Follow You">
+                </div>
+                <div class="track__info">
+                  <h4 class="track__title">Follow You</h4>
+                  <p class="track__artist">Imagine Dragons</p>
+                </div>
+
+              </button>
+            </li>
+            <li class="catalog__item">
+              <button class="catalog__track track">
+                <div class="track__cover-wrap">
+                  <img class="track__cover" src="./img/covers/cover3.jpg" alt="How Long - Dirt Femme">
+                </div>
+                <div class="track__info">
+                  <h4 class="track__title">Dirt Femme</h4>
+                  <p class="track__artist">How Long</p>
+                </div>
+              </button>
+            </li>
+            <li class="catalog__item">
+              <button class="catalog__track track">
+                <div class="track__cover-wrap">
+                  <img class="track__cover" src="./img/covers/cover4.jpg" alt="Tom Odell - Another Love">
+                </div>
+                <div class="track__info">
+                  <h4 class="track__title">Another Love</h4>
+                  <p class="track__artist">Tom Odell</p>
+                </div>
+              </button>
+            </li>
+            <li class="catalog__item">
+              <button class="catalog__track track">
+                <div class="track__cover-wrap">
+                  <img class="track__cover" src="./img/covers/cover5.jpg" alt="Lana Del Rey - Born To Die">
+                </div>
+                <div class="track__info">
+                  <h4 class="track__title">Born To Die</h4>
+                  <p class="track__artist">Lana Del Rey</p>
+                </div>
+              </button>
+            </li>
+            <li class="catalog__item">
+              <button class="catalog__track track">
+                <div class="track__cover-wrap">
+                  <img class="track__cover" src="./img/covers/cover6.jpg" alt="Adele - Hello">
+                </div>
+                <div class="track__info">
+                  <h4 class="track__title">Hello</h4>
+                  <p class="track__artist">Adele</p>
+                </div>
+              </button>
+            </li>
+            <li class="catalog__item">
+              <button class="catalog__track track">
+                <div class="track__cover-wrap">
+                  <img class="track__cover" src="./img/covers/cover7.jpg" alt="Tom Odell - Can't Pretend">
+                </div>
+                <div class="track__info">
+                  <h4 class="track__title">Can't Pretend</h4>
+                  <p class="track__artist">Tom Odell</p>
+                </div>
+              </button>
+            </li>
+            <li class="catalog__item">
+              <button class="catalog__track track">
+                <div class="track__cover-wrap">
+                  <img class="track__cover" src="./img/covers/cover8.jpg" alt="Lana Del Rey - Young and Beautiful">
+                </div>
+                <div class="track__info">
+                  <h4 class="track__title">Young and Beautiful</h4>
+                  <p class="track__artist">Lana Del Rey</p>
+                </div>
+              </button>
+            </li>
+            <li class="catalog__item">
+              <button class="catalog__track track">
+                <div class="track__cover-wrap">
+                  <img class="track__cover" src="./img/covers/cover9.jpg" alt="Adele - Someone Like You">
+                </div>
+                <div class="track__info">
+                  <h4 class="track__title">Someone Like You</h4>
+                  <p class="track__artist">Adele</p>
+                </div>
+              </button>
+            </li>
+            <li class="catalog__item">
+              <button class="catalog__track track">
+                <div class="track__cover-wrap">
+                  <img class="track__cover" src="./img/covers/cover10.jpg" alt="Imagine Dragons - Natural">
+                </div>
+                <div class="track__info">
+                  <h4 class="track__title">Natural</h4>
+                  <p class="track__artist">Imagine Dragons</p>
+                </div>
+              </button>
+            </li>
+            <li class="catalog__item">
+              <button class="catalog__track track">
+                <div class="track__cover-wrap">
+                  <img class="track__cover" src="./img/covers/cover11.jpg" alt="Drake - laugh now cry later">
+                </div>
+                <div class="track__info">
+                  <h4 class="track__title">laugh now cry later</h4>
+                  <p class="track__artist">Drake</p>
+                </div>
+              </button>
+            </li>
+            <li class="catalog__item">
+              <button class="catalog__track track">
+                <div class="track__cover-wrap">
+                  <img class="track__cover" src="./img/covers/cover12.jpg" alt="Madonna - Frozen">
+                </div>
+                <div class="track__info">
+                  <h4 class="track__title">Frozen</h4>
+                  <p class="track__artist">Madonna</p>
+                </div>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="player player--active">
+        <h2 class="visually-hidden">Player</h2>
+        <div class="player__container container">
+
+          <div class="player__track">
+            <h4 class="player__track-title">Save your tears</h4>
+            <p class="player__track-artist">The Weeknd</p>
+          </div>
+
+          <div class="player__controls">
+            <button class="player__btn player__btn--stop"></button>
+            <button class="player__btn player__btn--prev"></button>
+            <button class="player__btn player__btn--pause"></button>
+            <button class="player__btn player__btn--next"></button>
+            <button class="player__btn player__btn--like"></button>
+          </div>
+
+          <div class="player__progress-wrap">
+            <div class="player__progress">
+              <input class="player__progress-range" type="range" min="0" max="100" value="0">
+            </div>
+
+            <div class="player__time">
+              <span class="player__time--passed">0:34</span>
+              <span> / </span>
+              <span class="player__time--total">5:25</span>
+            </div>
+          </div>
+
+          <div class="player__volume-wrap">
+            <div class="player__volume">
+              <input class="player__volume-range" type="range" min="0" max="100" value="0">
+            </div>
+            <button class="player__btn player__btn--mute"></button>
+          </div>
+
+        </div>
+      </section>
+    </main>
+
+  </div>
 </body>
 
 </html>
