@@ -1,0 +1,90 @@
+.track {
+  border: 2px solid transparent;
+
+  padding: 6px;
+
+  &--active {
+    background: rgba(255, 255, 255, 0.5);
+    border: 2px solid $white;
+    border-radius: 20px;
+    transition-property: background-color;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+  }
+
+  &--active:hover {
+    background: rgba(255, 255, 255, 0.65);
+  }
+
+  &--active &__cover-wrap::after {
+    transform: translate(-50%, -50%) rotateY(0);
+    background-image: url("./img/icons/pause.svg");
+    opacity: 1;
+  }
+
+  &--active:hover &__cover-wrap::after {
+    background-color: $white;
+  }
+
+  &__cover-wrap {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px 12px 0px 0px;
+  }
+
+  &__cover-wrap::after {
+    content: "";
+    display: block;
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateY(45deg);
+    background-color: rgba(255, 255, 255, 0.8);
+    background-image: url("./img/icons/play.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    opacity: 0;
+    transition-property: transform, opacity;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out;
+  }
+
+  &:hover &__cover-wrap::after,
+  &:focus &__cover-wrap::after {
+    transform: translate(-50%, -50%) rotateY(0);
+    opacity: 1;
+  }
+
+  &:active &__cover-wrap::after {
+    transform: translate(-50%, -50%) rotateY(0) scale(1.4);
+    opacity: 1;
+  }
+
+  &__cover {
+    display: block;
+  }
+
+  &__info {
+    width: 100%;
+    flex-grow: 1;
+    background-color: $white;
+    border-radius: 0 0 12px 12px;
+    text-align: left;
+
+    padding: 14px 8px;
+  }
+
+  &__title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  &__artist {
+    font-size: 14px;
+    font-weight: 300;
+  }
+}
