@@ -22,7 +22,8 @@
     opacity: 0.85;
     transition: opacity 0.15s ease-in;
   }
-  &__favorites-btn:hover {
+  &__favorites-btn:hover,
+  &__favorites-btn:focus {
     opacity: 1;
   }
 }
