@@ -1,0 +1,27 @@
+.header {
+  padding: 24px 0;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__logo {
+    width: 23px;
+    height: 23px;
+  }
+
+  &__search {
+    max-width: 700px;
+    flex-grow: 1;
+  }
+
+  &__favorites-btn {
+    opacity: 0.85;
+    transition: opacity 0.15s ease-in;
+  }
+  &__favorites-btn:hover {
+    opacity: 1;
+  }
+}
