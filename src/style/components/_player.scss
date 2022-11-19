@@ -11,6 +11,12 @@
 
   &--active {
     bottom: 25px;
+
+    @include phones {
+      bottom: 0;
+
+      padding: 0;
+    }
   }
 
   &__container {
@@ -22,11 +28,30 @@
     border-radius: 20px;
 
     padding: 24px 8px;
+
+    @include tablets {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+
+      padding: 20px 16px;
+    }
+
+    @include phones {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      border-radius: 20px 20px 0 0;
+
+      padding: 15px 12px;
+    }
   }
 }
 
 .player__track {
   padding-left: 8px;
+
+  @include tablets {
+    padding-left: 0;
+  }
 
   &-title {
     font-size: 16px;
@@ -43,6 +68,11 @@
 .player__controls {
   display: flex;
   align-items: center;
+
+  @include phones {
+    grid-column: span 2;
+    justify-self: center;
+  }
 }
 
 .player__btn {
@@ -99,6 +129,10 @@
   grid-column: span 3;
   display: flex;
   align-items: center;
+
+  @include phones {
+    grid-column: span 2;
+  }
 }
 
 .player__progress {
@@ -151,10 +185,23 @@
   display: flex;
   align-items: center;
   gap: 10px;
+
+  @include tablets {
+    grid-row: 1 / 2;
+    grid-column: 3 / 4;
+  }
+
+  @include phones {
+    grid-column: 2 / 3;
+  }
 }
 
 .player__volume {
   line-height: 0;
+
+  @include tablets {
+    flex-grow: 1;
+  }
 }
 
 .player__volume-range {

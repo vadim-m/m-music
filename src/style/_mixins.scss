@@ -1,0 +1,25 @@
+// Миксины для Медиа-запросов
+// от 1200 до 1439.98
+@mixin large {
+  @media screen and (max-width: $large) {
+    @content;
+  }
+}
+// от 992 до 1199.98
+@mixin medium {
+  @media screen and (max-width: $medium) {
+    @content;
+  }
+}
+// от 576 до 991.98
+@mixin tablets {
+  @media screen and (max-width: $tablets) {
+    @content;
+  }
+}
+// от 0 до 575.98
+@mixin phones {
+  @media screen and (max-width: $phones) {
+    @content;
+  }
+}

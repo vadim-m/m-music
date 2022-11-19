@@ -1,5 +1,21 @@
+// COLORS
+
 $text: #000;
 $black: #000;
 $white: #fff;
 $green: #1e5a32;
 $gray: #a1a1a1;
+
+// BREAKPOINTS
+
+// Устройства X-large  от 1200 до 1400 (не включая!)
+$large: 1439.98px;
+
+// Устройства Large  от 992рх до 1200 (не включая!) / small-desktop
+$medium: 1199.98px;
+
+// Устройства Medium от 576 до 992px (не включая!) / tablets
+$tablets: 991.98px;
+
+// Устройства X-Small от 320px до 576px (не включая!) / mobile
+$phones: 575.98px;

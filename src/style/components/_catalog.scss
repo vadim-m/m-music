@@ -12,6 +12,19 @@
     gap: 4px;
 
     margin-bottom: 18px;
+
+    @include medium {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    @include tablets {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include phones {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+    }
   }
 
   &__item {

@@ -82,10 +82,22 @@ body {
 
   margin: 0 auto;
   padding: 0 10px;
+
+  @include phones {
+    padding: 0 6px;
+  }
 }
 
 .content {
   flex-grow: 1;
 
   padding-bottom: 140px;
+
+  @include tablets {
+    padding-bottom: 180px;
+  }
+
+  @include phones {
+    padding-bottom: 170px;
+  }
 }

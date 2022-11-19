@@ -16,6 +16,10 @@
   &__search {
     max-width: 700px;
     flex-grow: 1;
+
+    @include tablets {
+      max-width: 70%;
+    }
   }
 
   &__favorites-btn {
