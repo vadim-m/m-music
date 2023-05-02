@@ -166,6 +166,11 @@ const stopAudio = () => {
   document.querySelector(".track--active").classList.remove("track--active");
 };
 
+const playNextSong = () => {
+  // костыль для примера использования dispatch
+  nextBtn.dispatchEvent(new Event("click", { bubbles: true }));
+};
+
 const addHandlerOnTracks = () => {
   for (let card of trackCards) {
     card.addEventListener("click", playAudio);
@@ -253,6 +258,7 @@ const init = () => {
   prevBtn.addEventListener("click", playAudio);
   nextBtn.addEventListener("click", playAudio);
   audio.addEventListener("timeupdate", updatePlaybackTime);
+  audio.addEventListener("ended", playNextSong);
   playerProgressEl.addEventListener("input", updateProgress);
 };
 
