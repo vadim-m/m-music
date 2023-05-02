@@ -163,9 +163,7 @@ const stopAudio = () => {
   playBtn.classList.remove("player__btn--pause");
   playerEl.classList.remove("player--active");
 
-  for (let card of trackCards) {
-    card.classList.remove("track--active");
-  }
+  document.querySelector(".track--active").classList.remove("track--active");
 };
 
 const addHandlerOnTracks = () => {
