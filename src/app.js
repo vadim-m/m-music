@@ -133,14 +133,14 @@ const playAudio = (e) => {
     currentTrackInd + 1 === dataMusic.length ? 0 : currentTrackInd + 1;
   prevBtn.dataset.id = dataMusic[prevTrack].id;
   nextBtn.dataset.id = dataMusic[nextTrack].id;
-  console.log("prevBtn: ", prevTrack);
-  console.log("currentTrackInd: ", currentTrackInd);
-  console.log("nextTrack: ", nextTrack);
 
   for (let card of trackCards) {
-    card.classList.remove("track--active");
+    if (card.dataset.id === id) {
+      card.classList.add("track--active");
+    } else {
+      card.classList.remove("track--active");
+    }
   }
-  activeTrack.classList.add("track--active");
 };
 
 const pauseAudio = () => {
