@@ -96,6 +96,7 @@ const playerEl = document.querySelector(".player");
 const catalogEl = document.querySelector(".catalog__list");
 const playBtn = document.querySelector(".player__btn--play");
 const stopBtn = document.querySelector(".player__btn--stop");
+const catalogBtn = document.querySelector(".catalog__btn-all");
 
 const playAudio = (e) => {
   e.preventDefault();
@@ -152,6 +153,11 @@ const addHandlerOnTracks = () => {
   }
 };
 
+const showAllTracks = () => {
+  [...trackCards].forEach((card) => (card.style.display = ""));
+  catalogBtn.remove();
+};
+
 const createCard = (el) => {
   const card = document.createElement("a");
   card.href = "#";
@@ -199,6 +205,7 @@ const init = () => {
 
   playBtn.addEventListener("click", pauseAudio);
   stopBtn.addEventListener("click", stopAudio);
+  catalogBtn.addEventListener("click", showAllTracks);
 };
 
 init();
