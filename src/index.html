@@ -41,30 +41,7 @@
         <div class="catalog__container container">
           <ul class="catalog__list">
             <li class="catalog__item">
-              <button class="catalog__track track track--active">
-                <div class="track__cover-wrap">
-                  <img class="track__cover" src="./img/covers/cover1.jpg" alt="The Weeknd - Save your tears">
-                </div>
-                <div class="track__info">
-                  <h4 class="track__title">Save your tears</h4>
-                  <p class="track__artist">The Weeknd</p>
-                </div>
-              </button>
-            </li>
-            <li class="catalog__item">
-              <button class="catalog__track track">
-                <div class="track__cover-wrap">
-                  <img class="track__cover" src="./img/covers/cover2.jpg" alt="Imagine Dragons - Follow You">
-                </div>
-                <div class="track__info">
-                  <h4 class="track__title">Follow You</h4>
-                  <p class="track__artist">Imagine Dragons</p>
-                </div>
-
-              </button>
-            </li>
-            <li class="catalog__item">
-              <button class="catalog__track track">
+              <button class="catalog__track track" data-track="1.mp3">
                 <div class="track__cover-wrap">
                   <img class="track__cover" src="./img/covers/cover3.jpg" alt="How Long - Dirt Femme">
                 </div>
@@ -75,7 +52,7 @@
               </button>
             </li>
             <li class="catalog__item">
-              <button class="catalog__track track">
+              <button class="catalog__track track" data-track="2.mp3">
                 <div class="track__cover-wrap">
                   <img class="track__cover" src="./img/covers/cover4.jpg" alt="Tom Odell - Another Love">
                 </div>
@@ -86,7 +63,7 @@
               </button>
             </li>
             <li class="catalog__item">
-              <button class="catalog__track track">
+              <button class="catalog__track track" data-track="3.mp3">
                 <div class="track__cover-wrap">
                   <img class="track__cover" src="./img/covers/cover5.jpg" alt="Lana Del Rey - Born To Die">
                 </div>
@@ -97,7 +74,7 @@
               </button>
             </li>
             <li class="catalog__item">
-              <button class="catalog__track track">
+              <button class="catalog__track track" data-track="4.mp3">
                 <div class="track__cover-wrap">
                   <img class="track__cover" src="./img/covers/cover6.jpg" alt="Adele - Hello">
                 </div>
@@ -108,7 +85,7 @@
               </button>
             </li>
             <li class="catalog__item">
-              <button class="catalog__track track">
+              <button class="catalog__track track" data-track="5.mp3">
                 <div class="track__cover-wrap">
                   <img class="track__cover" src="./img/covers/cover7.jpg" alt="Tom Odell - Can't Pretend">
                 </div>
@@ -173,13 +150,36 @@
                 </div>
               </button>
             </li>
+            <li class="catalog__item">
+              <button class="catalog__track track">
+                <div class="track__cover-wrap">
+                  <img class="track__cover" src="./img/covers/cover1.jpg" alt="The Weeknd - Save your tears">
+                </div>
+                <div class="track__info">
+                  <h4 class="track__title">Save your tears</h4>
+                  <p class="track__artist">The Weeknd</p>
+                </div>
+              </button>
+            </li>
+            <li class="catalog__item">
+              <button class="catalog__track track">
+                <div class="track__cover-wrap">
+                  <img class="track__cover" src="./img/covers/cover2.jpg" alt="Imagine Dragons - Follow You">
+                </div>
+                <div class="track__info">
+                  <h4 class="track__title">Follow You</h4>
+                  <p class="track__artist">Imagine Dragons</p>
+                </div>
+
+              </button>
+            </li>
           </ul>
           <button class="catalog__btn-all">
             See all
           </button>
         </div>
       </section>
-      <section class="player player--active">
+      <section class="player">
         <h2 class="visually-hidden">Player</h2>
         <div class="player__container container">
           <div class="player__track">
@@ -189,7 +189,7 @@
           <div class="player__controls">
             <button class="player__btn player__btn--stop"></button>
             <button class="player__btn player__btn--prev"></button>
-            <button class="player__btn player__btn--pause"></button>
+            <button class="player__btn player__btn--play"></button>
             <button class="player__btn player__btn--next"></button>
             <button class="player__btn player__btn--like"></button>
           </div>
@@ -212,6 +212,14 @@
         </div>
       </section>
     </main>
+  </div>
+
+  <div class="debug">
+    <audio src="./audio/1.mp3"></audio>
+    <audio src="./audio/2.mp3"></audio>
+    <audio src="./audio/3.mp3"></audio>
+    <audio src="./audio/4.mp3"></audio>
+    <audio src="./audio/5.mp3"></audio>
   </div>
 </body>
 

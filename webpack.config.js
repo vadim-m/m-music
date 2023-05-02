@@ -88,6 +88,10 @@ module.exports = {
         type: "asset/resource",
       },
       {
+        test: /\.(mp3|ogg)$/i,
+        type: "asset/resource",
+      },
+      {
         test: /\.m?js$/i,
         exclude: /(node_modules|bower_components)/,
         use: {
