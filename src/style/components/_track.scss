@@ -23,6 +23,8 @@
   }
 
   &--active:hover &__cover-wrap::after {
+    transition-property: background-color;
+    transition-duration: 0.2s;
     background-color: $white;
   }
 
