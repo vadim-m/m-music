@@ -90,13 +90,17 @@ const dataMusic = [
 
 const audio = new Audio();
 
-// чтобы была динамическая подгрузка треков
-const trackCards = document.getElementsByClassName("track");
 const playerEl = document.querySelector(".player");
 const catalogEl = document.querySelector(".catalog__list");
 const playBtn = document.querySelector(".player__btn--play");
 const stopBtn = document.querySelector(".player__btn--stop");
+const prevBtn = document.querySelector(".player__btn--prev");
+const nextBtn = document.querySelector(".player__btn--next");
+const likeBtn = document.querySelector(".player__btn--like");
+const unmuteBtn = document.querySelector(".player__btn--next");
 const catalogBtn = document.querySelector(".catalog__btn-all");
+// чтобы была динамическая подгрузка треков
+const trackCards = document.getElementsByClassName("track");
 
 const playAudio = (e) => {
   e.preventDefault();
@@ -107,14 +111,28 @@ const playAudio = (e) => {
     return;
   }
 
+  let currentTrackInd = 0;
   const id = activeTrack.dataset.id;
-  const track = dataMusic.find((item) => item.id === id);
+  const track = dataMusic.find((item, index) => {
+    currentTrackInd = index;
+    return item.id === id;
+  });
   audio.src = track.mp3;
   audio.play();
 
   activeTrack.classList.remove("track--pause");
   playerEl.classList.add("player--active");
   playBtn.classList.add("player__btn--pause");
+
+  const prevTrack =
+    currentTrackInd === 0 ? dataMusic.length - 1 : currentTrackInd - 1;
+  const nextTrack =
+    currentTrackInd + 1 === dataMusic.length ? 0 : currentTrackInd + 1;
+  prevBtn.dataset.id = dataMusic[prevTrack].id;
+  nextBtn.dataset.id = dataMusic[nextTrack].id;
+  console.log("prevBtn: ", prevTrack);
+  console.log("currentTrackInd: ", currentTrackInd);
+  console.log("nextTrack: ", nextTrack);
 
   for (let card of trackCards) {
     card.classList.remove("track--active");
@@ -206,6 +224,8 @@ const init = () => {
   playBtn.addEventListener("click", pauseAudio);
   stopBtn.addEventListener("click", stopAudio);
   catalogBtn.addEventListener("click", showAllTracks);
+  prevBtn.addEventListener("click", playAudio);
+  nextBtn.addEventListener("click", playAudio);
 };
 
 init();
