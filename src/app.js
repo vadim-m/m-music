@@ -99,6 +99,9 @@ const nextBtn = document.querySelector(".player__btn--next");
 const likeBtn = document.querySelector(".player__btn--like");
 const unmuteBtn = document.querySelector(".player__btn--next");
 const catalogBtn = document.querySelector(".catalog__btn-all");
+const playerPassedTimeEl = document.querySelector(".player__time--passed");
+const playerDurationTimeEl = document.querySelector(".player__time--total");
+const playerProgressEl = document.querySelector(".player__progress-range");
 // чтобы была динамическая подгрузка треков
 const trackCards = document.getElementsByClassName("track");
 
@@ -216,6 +219,31 @@ const checkCardsCount = (i = 1) => {
   }
 };
 
+const updatePlaybackTime = () => {
+  const duration = audio.duration;
+  const currentTime = audio.currentTime;
+  const progress = (currentTime / duration) * 1000;
+  playerProgressEl.value = progress ? progress : 0;
+
+  const minPassed = Math.floor(currentTime / 60) || "0";
+  const secPassed = Math.floor(currentTime % 60) || "0";
+
+  const minDuration = Math.floor(duration / 60) || "0";
+  const secDuration = Math.floor(duration % 60) || "0";
+
+  playerPassedTimeEl.textContent = `
+    ${minPassed}:${secPassed < 10 ? "0" + secPassed : secPassed}
+  `;
+  playerDurationTimeEl.textContent = `
+  ${minDuration}:${secDuration < 10 ? "0" + secDuration : secDuration}
+  `;
+};
+
+const updateProgress = () => {
+  const progress = playerProgressEl.value;
+  audio.currentTime = (progress / 1000) * audio.duration;
+};
+
 const init = () => {
   renderCatalog(dataMusic);
   addHandlerOnTracks();
@@ -226,6 +254,8 @@ const init = () => {
   catalogBtn.addEventListener("click", showAllTracks);
   prevBtn.addEventListener("click", playAudio);
   nextBtn.addEventListener("click", playAudio);
+  audio.addEventListener("timeupdate", updatePlaybackTime);
+  playerProgressEl.addEventListener("input", updateProgress);
 };
 
 init();
