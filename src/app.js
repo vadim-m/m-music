@@ -88,6 +88,8 @@ const dataMusic = [
   },
 ];
 
+let playList = [];
+
 const favoriteList = JSON.parse(localStorage.getItem("favorites")) ?? [];
 
 const audio = new Audio();
@@ -102,6 +104,7 @@ const likeBtn = document.querySelector(".player__btn--like");
 const unmuteBtn = document.querySelector(".player__btn--next");
 const catalogBtn = document.querySelector(".catalog__btn-all");
 const favoriteBtn = document.querySelector(".header__favorites-icon");
+const headerLogo = document.querySelector(".header__logo");
 const playerPassedTimeEl = document.querySelector(".player__time--passed");
 const playerDurationTimeEl = document.querySelector(".player__time--total");
 const playerProgressEl = document.querySelector(".player__progress-range");
@@ -119,7 +122,7 @@ const playAudio = (e) => {
 
   let currentTrackInd = 0;
   const id = activeTrack.dataset.id;
-  const track = dataMusic.find((item, index) => {
+  const track = playList.find((item, index) => {
     currentTrackInd = index;
     return item.id === id;
   });
@@ -139,11 +142,11 @@ const playAudio = (e) => {
   playBtn.classList.add("player__btn--pause");
 
   const prevTrack =
-    currentTrackInd === 0 ? dataMusic.length - 1 : currentTrackInd - 1;
+    currentTrackInd === 0 ? playList.length - 1 : currentTrackInd - 1;
   const nextTrack =
-    currentTrackInd + 1 === dataMusic.length ? 0 : currentTrackInd + 1;
-  prevBtn.dataset.id = dataMusic[prevTrack].id;
-  nextBtn.dataset.id = dataMusic[nextTrack].id;
+    currentTrackInd + 1 === playList.length ? 0 : currentTrackInd + 1;
+  prevBtn.dataset.id = playList[prevTrack].id;
+  nextBtn.dataset.id = playList[nextTrack].id;
   likeBtn.dataset.id = id;
 
   for (let card of trackCards) {
@@ -217,9 +220,9 @@ const createCard = (el) => {
 };
 
 const renderCatalog = (dataList) => {
-  const data = [...dataList];
+  playList = [...dataList];
   catalogEl.textContent = "";
-  const listCard = data.map((item) => createCard(item));
+  const listCard = dataList.map((item) => createCard(item));
 
   catalogEl.append(...listCard);
 };
@@ -272,6 +275,19 @@ const addTrackToFavorites = () => {
   localStorage.setItem("favorites", JSON.stringify(favoriteList));
 };
 
+const showFavorites = () => {
+  const data = dataMusic.filter((item) => favoriteList.includes(item.id));
+  renderCatalog(data);
+  addHandlerOnTracks();
+  checkCardsCount();
+};
+
+const showInitialList = () => {
+  renderCatalog(dataMusic);
+  addHandlerOnTracks();
+  checkCardsCount();
+};
+
 const init = () => {
   renderCatalog(dataMusic);
   addHandlerOnTracks();
@@ -285,12 +301,9 @@ const init = () => {
   audio.addEventListener("timeupdate", updatePlaybackTime);
   audio.addEventListener("ended", playNextSong);
   playerProgressEl.addEventListener("input", updateProgress);
-
   likeBtn.addEventListener("click", addTrackToFavorites);
-
-  favoriteBtn.addEventListener("click", () => {
-    //
-  });
+  favoriteBtn.addEventListener("click", showFavorites);
+  headerLogo.addEventListener("click", showInitialList);
 };
 
 init();
