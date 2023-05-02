@@ -116,6 +116,11 @@
     background-image: url("./img/icons/like.svg");
   }
 
+  &--like-fill {
+    filter: invert(26%) sepia(87%) saturate(7016%) hue-rotate(356deg)
+      brightness(97%) contrast(118%);
+  }
+
   &--mute {
     background-image: url("./img/icons/mute.svg");
   }

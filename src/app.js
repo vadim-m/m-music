@@ -88,6 +88,8 @@ const dataMusic = [
   },
 ];
 
+const favoriteList = JSON.parse(localStorage.getItem("favorites")) ?? [];
+
 const audio = new Audio();
 
 const playerEl = document.querySelector(".player");
@@ -99,6 +101,7 @@ const nextBtn = document.querySelector(".player__btn--next");
 const likeBtn = document.querySelector(".player__btn--like");
 const unmuteBtn = document.querySelector(".player__btn--next");
 const catalogBtn = document.querySelector(".catalog__btn-all");
+const favoriteBtn = document.querySelector(".header__favorites-icon");
 const playerPassedTimeEl = document.querySelector(".player__time--passed");
 const playerDurationTimeEl = document.querySelector(".player__time--total");
 const playerProgressEl = document.querySelector(".player__progress-range");
@@ -120,6 +123,14 @@ const playAudio = (e) => {
     currentTrackInd = index;
     return item.id === id;
   });
+
+  const index = favoriteList.indexOf(id);
+  if (index !== -1) {
+    likeBtn.classList.add("player__btn--like-fill");
+  } else {
+    likeBtn.classList.remove("player__btn--like-fill");
+  }
+
   audio.src = track.mp3;
   audio.play();
 
@@ -133,6 +144,7 @@ const playAudio = (e) => {
     currentTrackInd + 1 === dataMusic.length ? 0 : currentTrackInd + 1;
   prevBtn.dataset.id = dataMusic[prevTrack].id;
   nextBtn.dataset.id = dataMusic[nextTrack].id;
+  likeBtn.dataset.id = id;
 
   for (let card of trackCards) {
     if (card.dataset.id === id) {
@@ -167,7 +179,7 @@ const stopAudio = () => {
 };
 
 const playNextSong = () => {
-  // костыль для примера использования dispatch
+  // костыль просто для примера использования dispatch
   nextBtn.dispatchEvent(new Event("click", { bubbles: true }));
 };
 
@@ -247,6 +259,19 @@ const updateProgress = () => {
   audio.currentTime = (progress / 1000) * audio.duration;
 };
 
+const addTrackToFavorites = () => {
+  const index = favoriteList.indexOf(likeBtn.dataset.id);
+  if (index === -1) {
+    favoriteList.push(likeBtn.dataset.id);
+    likeBtn.classList.add("player__btn--like-fill");
+  } else {
+    favoriteList.splice(index, 1);
+    likeBtn.classList.remove("player__btn--like-fill");
+  }
+
+  localStorage.setItem("favorites", JSON.stringify(favoriteList));
+};
+
 const init = () => {
   renderCatalog(dataMusic);
   addHandlerOnTracks();
@@ -260,6 +285,12 @@ const init = () => {
   audio.addEventListener("timeupdate", updatePlaybackTime);
   audio.addEventListener("ended", playNextSong);
   playerProgressEl.addEventListener("input", updateProgress);
+
+  likeBtn.addEventListener("click", addTrackToFavorites);
+
+  favoriteBtn.addEventListener("click", () => {
+    //
+  });
 };
 
 init();
