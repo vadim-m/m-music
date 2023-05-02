@@ -38,10 +38,10 @@
 
     @include phones {
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+      gap: 8px;
       border-radius: 20px 20px 0 0;
 
-      padding: 15px 12px;
+      padding: 10px 12px;
     }
   }
 }

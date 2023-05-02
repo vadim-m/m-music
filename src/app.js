@@ -7,84 +7,84 @@ const dataMusic = [
     artist: "The weeknd",
     track: "Save your tears",
     poster: "./assets/cover1.jpg",
-    mp3: "audio/The Weeknd - Save Your Tears.mp3",
+    mp3: "/assets/1.mp3",
   },
   {
     id: "2",
     artist: "Imagine Dragons",
     track: "Follow You",
     poster: "./assets/cover2.jpg",
-    mp3: "audio/Imagine Dragons - Follow You.mp3",
+    mp3: "/assets/2.mp3",
   },
   {
     id: "3",
     artist: "Tove Lo",
     track: "How Long",
     poster: "./assets/cover3.jpg",
-    mp3: "audio/Tove Lo - How Long.mp3",
+    mp3: "/assets/3.mp3",
   },
   {
     id: "4",
     artist: "Tom Odell",
     track: "Another Love",
     poster: "./assets/cover4.jpg",
-    mp3: "audio/Tom Odell - Another Love.mp3",
+    mp3: "/assets/4.mp3",
   },
   {
     id: "5",
     artist: "Lana Del Rey",
     track: "Born To Die",
     poster: "./assets/cover5.jpg",
-    mp3: "audio/Lana Del Rey - Born To Die.mp3",
+    mp3: "/assets/5.mp3",
   },
   {
     id: "6",
     artist: "Adele",
     track: "Hello",
     poster: "./assets/cover6.jpg",
-    mp3: "audio/Adele - Hello.mp3",
+    mp3: "/assets/1.mp3",
   },
   {
     id: "7",
     artist: "Tom Odell",
     track: "Can't Pretend",
     poster: "./assets/cover7.jpg",
-    mp3: "audio/Tom Odell - Can't Pretend.mp3",
+    mp3: "/assets/2.mp3",
   },
   {
     id: "8",
     artist: "Lana Del Rey",
     track: "Young And Beautiful",
     poster: "./assets/cover8.jpg",
-    mp3: "audio/Lana Del Rey - Young And Beautiful.mp3",
+    mp3: "/assets/3.mp3",
   },
   {
     id: "9",
     artist: "Adele",
     track: "Someone Like You",
     poster: "./assets/cover9.jpg",
-    mp3: "audio/Adele - Someone Like You.mp3",
+    mp3: "/assets/4.mp3",
   },
   {
     id: "10",
     artist: "Imagine Dragons",
     track: "Natural",
     poster: "./assets/cover10.jpg",
-    mp3: "audio/Imagine Dragons - Natural.mp3",
+    mp3: "/assets/5.mp3",
   },
   {
     id: "11",
     artist: "Drake",
     track: "Laugh Now Cry Later",
     poster: "./assets/cover11.jpg",
-    mp3: "audio/Drake - Laugh Now Cry Later.mp3",
+    mp3: "/assets/1.mp3",
   },
   {
     id: "12",
     artist: "Madonna",
     track: "Frozen",
     poster: "./assets/cover12.jpg",
-    mp3: "audio/Madonna - Frozen.mp3",
+    mp3: "/assets/2.mp3",
   },
 ];
 
@@ -98,12 +98,20 @@ const playBtn = document.querySelector(".player__btn--play");
 const stopBtn = document.querySelector(".player__btn--stop");
 
 const playAudio = (e) => {
+  e.preventDefault();
   const activeTrack = e.currentTarget;
-  //! DELETE after connect to API
-  const url = `./assets/${activeTrack.dataset.track}`;
-  audio.src = url;
+
+  if (activeTrack.classList.contains("track--active")) {
+    pauseAudio();
+    return;
+  }
+
+  const id = activeTrack.dataset.id;
+  const track = dataMusic.find((item) => item.id === id);
+  audio.src = track.mp3;
   audio.play();
 
+  activeTrack.classList.remove("track--pause");
   playerEl.classList.add("player--active");
   playBtn.classList.add("player__btn--pause");
 
@@ -114,12 +122,16 @@ const playAudio = (e) => {
 };
 
 const pauseAudio = () => {
+  let activeTrack = document.querySelector(".track--active");
+
   if (audio.paused) {
     audio.play();
     playBtn.classList.add("player__btn--pause");
+    activeTrack.classList.remove("track--pause");
   } else {
     audio.pause();
     playBtn.classList.remove("player__btn--pause");
+    activeTrack.classList.add("track--pause");
   }
 };
 
@@ -134,15 +146,15 @@ const stopAudio = () => {
   }
 };
 
-for (let card of trackCards) {
-  card.addEventListener("click", playAudio);
-}
-
-playBtn.addEventListener("click", pauseAudio);
-stopBtn.addEventListener("click", stopAudio);
+const addHandlerOnTracks = () => {
+  for (let card of trackCards) {
+    card.addEventListener("click", playAudio);
+  }
+};
 
 const createCard = (el) => {
   const card = document.createElement("a");
+  card.href = "#";
   card.className = "catalog__track track";
   card.dataset.id = el.id;
   card.innerHTML = `
@@ -167,12 +179,26 @@ const renderCatalog = (dataList) => {
   catalogEl.textContent = "";
   const listCard = data.map((item) => createCard(item));
 
-  console.log(listCard);
   catalogEl.append(...listCard);
+};
+
+const checkCardsCount = (i = 1) => {
+  const cardHeight = trackCards[0].clientHeight;
+  const catalogHeight = catalogEl.clientHeight;
+
+  if (catalogHeight > cardHeight * 3) {
+    trackCards[trackCards.length - i].style.display = "none";
+    checkCardsCount(i + 1);
+  }
 };
 
 const init = () => {
   renderCatalog(dataMusic);
+  addHandlerOnTracks();
+  checkCardsCount();
+
+  playBtn.addEventListener("click", pauseAudio);
+  stopBtn.addEventListener("click", stopAudio);
 };
 
 init();

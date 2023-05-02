@@ -2,6 +2,11 @@
   padding-top: 24px;
   margin-bottom: 24px;
 
+  @include phones {
+    padding-top: 12px;
+    margin-bottom: 14px;
+  }
+
   &__container {
     display: flex;
     align-items: center;
