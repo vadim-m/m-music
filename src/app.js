@@ -1,11 +1,99 @@
 import "./index.html";
 import "./index.scss";
 
+const dataMusic = [
+  {
+    id: "1",
+    artist: "The weeknd",
+    track: "Save your tears",
+    poster: "./assets/cover1.jpg",
+    mp3: "audio/The Weeknd - Save Your Tears.mp3",
+  },
+  {
+    id: "2",
+    artist: "Imagine Dragons",
+    track: "Follow You",
+    poster: "./assets/cover2.jpg",
+    mp3: "audio/Imagine Dragons - Follow You.mp3",
+  },
+  {
+    id: "3",
+    artist: "Tove Lo",
+    track: "How Long",
+    poster: "./assets/cover3.jpg",
+    mp3: "audio/Tove Lo - How Long.mp3",
+  },
+  {
+    id: "4",
+    artist: "Tom Odell",
+    track: "Another Love",
+    poster: "./assets/cover4.jpg",
+    mp3: "audio/Tom Odell - Another Love.mp3",
+  },
+  {
+    id: "5",
+    artist: "Lana Del Rey",
+    track: "Born To Die",
+    poster: "./assets/cover5.jpg",
+    mp3: "audio/Lana Del Rey - Born To Die.mp3",
+  },
+  {
+    id: "6",
+    artist: "Adele",
+    track: "Hello",
+    poster: "./assets/cover6.jpg",
+    mp3: "audio/Adele - Hello.mp3",
+  },
+  {
+    id: "7",
+    artist: "Tom Odell",
+    track: "Can't Pretend",
+    poster: "./assets/cover7.jpg",
+    mp3: "audio/Tom Odell - Can't Pretend.mp3",
+  },
+  {
+    id: "8",
+    artist: "Lana Del Rey",
+    track: "Young And Beautiful",
+    poster: "./assets/cover8.jpg",
+    mp3: "audio/Lana Del Rey - Young And Beautiful.mp3",
+  },
+  {
+    id: "9",
+    artist: "Adele",
+    track: "Someone Like You",
+    poster: "./assets/cover9.jpg",
+    mp3: "audio/Adele - Someone Like You.mp3",
+  },
+  {
+    id: "10",
+    artist: "Imagine Dragons",
+    track: "Natural",
+    poster: "./assets/cover10.jpg",
+    mp3: "audio/Imagine Dragons - Natural.mp3",
+  },
+  {
+    id: "11",
+    artist: "Drake",
+    track: "Laugh Now Cry Later",
+    poster: "./assets/cover11.jpg",
+    mp3: "audio/Drake - Laugh Now Cry Later.mp3",
+  },
+  {
+    id: "12",
+    artist: "Madonna",
+    track: "Frozen",
+    poster: "./assets/cover12.jpg",
+    mp3: "audio/Madonna - Frozen.mp3",
+  },
+];
+
 const audio = new Audio();
 
 // чтобы была динамическая подгрузка треков
 const trackCards = document.getElementsByClassName("track");
 const playerEl = document.querySelector(".player");
+const catalogEl = document.querySelector(".catalog__list");
 const playBtn = document.querySelector(".player__btn--play");
 const stopBtn = document.querySelector(".player__btn--stop");
 
@@ -52,3 +140,39 @@ for (let card of trackCards) {
 
 playBtn.addEventListener("click", pauseAudio);
 stopBtn.addEventListener("click", stopAudio);
+
+const createCard = (el) => {
+  const card = document.createElement("a");
+  card.className = "catalog__track track";
+  card.dataset.id = el.id;
+  card.innerHTML = `
+    <div class="track__cover-wrap">
+      <img class="track__cover" src="${el.poster}" alt="${el.artist} ${el.track}">
+    </div>
+    <div class="track__info">
+      <h4 class="track__title">${el.track}</h4>
+      <p class="track__artist">${el.artist}</p>
+    </div>
+  `;
+
+  const listItem = document.createElement("li");
+  listItem.className = "catalog__item";
+  listItem.append(card);
+
+  return listItem;
+};
+
+const renderCatalog = (dataList) => {
+  const data = [...dataList];
+  catalogEl.textContent = "";
+  const listCard = data.map((item) => createCard(item));
+
+  console.log(listCard);
+  catalogEl.append(...listCard);
+};
+
+const init = () => {
+  renderCatalog(dataMusic);
+};
+
+init();
