@@ -101,12 +101,13 @@ const stopBtn = document.querySelector(".player__btn--stop");
 const prevBtn = document.querySelector(".player__btn--prev");
 const nextBtn = document.querySelector(".player__btn--next");
 const likeBtn = document.querySelector(".player__btn--like");
-const unmuteBtn = document.querySelector(".player__btn--next");
+const muteBtn = document.querySelector(".player__btn--unmute");
 const catalogBtn = document.querySelector(".catalog__btn-all");
 const favoriteBtn = document.querySelector(".header__favorites-icon");
 const headerLogo = document.querySelector(".header__logo");
 const playerPassedTimeEl = document.querySelector(".player__time--passed");
 const playerDurationTimeEl = document.querySelector(".player__time--total");
+const playerVolumeEl = document.querySelector(".player__volume-range");
 const playerProgressEl = document.querySelector(".player__progress-range");
 // чтобы была динамическая подгрузка треков
 const trackCards = document.getElementsByClassName("track");
@@ -275,6 +276,27 @@ const addTrackToFavorites = () => {
   localStorage.setItem("favorites", JSON.stringify(favoriteList));
 };
 
+const volumeControl = () => {
+  const volume = playerVolumeEl.value;
+  audio.volume = volume / 100;
+  localStorage.setItem("volume", volume / 100);
+};
+
+const volumeMuteControl = () => {
+  if (audio.volume) {
+    localStorage.setItem("volume", audio.volume);
+    audio.volume = 0;
+    playerVolumeEl.value = 0;
+    muteBtn.classList.remove("player__btn--unmute");
+    muteBtn.classList.add("player__btn--mute");
+  } else {
+    audio.volume = localStorage.getItem("volume");
+    playerVolumeEl.value = localStorage.getItem("volume") * 100;
+    muteBtn.classList.add("player__btn--unmute");
+    muteBtn.classList.remove("player__btn--mute");
+  }
+};
+
 const showFavorites = () => {
   const data = dataMusic.filter((item) => favoriteList.includes(item.id));
   renderCatalog(data);
@@ -288,22 +310,30 @@ const showInitialList = () => {
   checkCardsCount();
 };
 
+const setInitialVolume = () => {
+  audio.volume = localStorage.getItem("volume") ?? 1;
+  playerVolumeEl.value = localStorage.getItem("volume") * 100;
+};
+
 const init = () => {
   renderCatalog(dataMusic);
   addHandlerOnTracks();
   checkCardsCount();
+  setInitialVolume();
 
   playBtn.addEventListener("click", pauseAudio);
   stopBtn.addEventListener("click", stopAudio);
-  catalogBtn.addEventListener("click", showAllTracks);
   prevBtn.addEventListener("click", playAudio);
   nextBtn.addEventListener("click", playAudio);
+  likeBtn.addEventListener("click", addTrackToFavorites);
+  catalogBtn.addEventListener("click", showAllTracks);
+  favoriteBtn.addEventListener("click", showFavorites);
+  headerLogo.addEventListener("click", showInitialList);
   audio.addEventListener("timeupdate", updatePlaybackTime);
   audio.addEventListener("ended", playNextSong);
   playerProgressEl.addEventListener("input", updateProgress);
-  likeBtn.addEventListener("click", addTrackToFavorites);
-  favoriteBtn.addEventListener("click", showFavorites);
-  headerLogo.addEventListener("click", showInitialList);
+  playerVolumeEl.addEventListener("input", volumeControl);
+  muteBtn.addEventListener("click", volumeMuteControl);
 };
 
 init();
