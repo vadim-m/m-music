@@ -1,93 +1,9 @@
 import "./index.html";
 import "./index.scss";
 
-const dataMusic = [
-  {
-    id: "1",
-    artist: "The weeknd",
-    track: "Save your tears",
-    poster: "./assets/cover1.jpg",
-    mp3: "/assets/1.mp3",
-  },
-  {
-    id: "2",
-    artist: "Imagine Dragons",
-    track: "Follow You",
-    poster: "./assets/cover2.jpg",
-    mp3: "/assets/2.mp3",
-  },
-  {
-    id: "3",
-    artist: "Tove Lo",
-    track: "How Long",
-    poster: "./assets/cover3.jpg",
-    mp3: "/assets/3.mp3",
-  },
-  {
-    id: "4",
-    artist: "Tom Odell",
-    track: "Another Love",
-    poster: "./assets/cover4.jpg",
-    mp3: "/assets/4.mp3",
-  },
-  {
-    id: "5",
-    artist: "Lana Del Rey",
-    track: "Born To Die",
-    poster: "./assets/cover5.jpg",
-    mp3: "/assets/5.mp3",
-  },
-  {
-    id: "6",
-    artist: "Adele",
-    track: "Hello",
-    poster: "./assets/cover6.jpg",
-    mp3: "/assets/1.mp3",
-  },
-  {
-    id: "7",
-    artist: "Tom Odell",
-    track: "Can't Pretend",
-    poster: "./assets/cover7.jpg",
-    mp3: "/assets/2.mp3",
-  },
-  {
-    id: "8",
-    artist: "Lana Del Rey",
-    track: "Young And Beautiful",
-    poster: "./assets/cover8.jpg",
-    mp3: "/assets/3.mp3",
-  },
-  {
-    id: "9",
-    artist: "Adele",
-    track: "Someone Like You",
-    poster: "./assets/cover9.jpg",
-    mp3: "/assets/4.mp3",
-  },
-  {
-    id: "10",
-    artist: "Imagine Dragons",
-    track: "Natural",
-    poster: "./assets/cover10.jpg",
-    mp3: "/assets/5.mp3",
-  },
-  {
-    id: "11",
-    artist: "Drake",
-    track: "Laugh Now Cry Later",
-    poster: "./assets/cover11.jpg",
-    mp3: "/assets/1.mp3",
-  },
-  {
-    id: "12",
-    artist: "Madonna",
-    track: "Frozen",
-    poster: "./assets/cover12.jpg",
-    mp3: "/assets/2.mp3",
-  },
-];
+const API_URL = "http://localhost:3024";
 
+let dataMusic = [];
 let playList = [];
 
 const favoriteList = JSON.parse(localStorage.getItem("favorites")) ?? [];
@@ -135,7 +51,7 @@ const playAudio = (e) => {
     likeBtn.classList.remove("player__btn--like-fill");
   }
 
-  audio.src = track.mp3;
+  audio.src = `${API_URL}/${track.mp3}`;
   audio.play();
 
   activeTrack.classList.remove("track--pause");
@@ -195,7 +111,6 @@ const addHandlerOnTracks = () => {
 
 const showAllTracks = () => {
   [...trackCards].forEach((card) => (card.style.display = ""));
-  catalogBtn.remove();
 };
 
 const createCard = (el) => {
@@ -205,7 +120,7 @@ const createCard = (el) => {
   card.dataset.id = el.id;
   card.innerHTML = `
     <div class="track__cover-wrap">
-      <img class="track__cover" src="${el.poster}" alt="${el.artist} ${el.track}">
+      <img class="track__cover" src="${API_URL}/${el.poster}" alt="${el.artist} ${el.track}">
     </div>
     <div class="track__info">
       <h4 class="track__title">${el.track}</h4>
@@ -315,7 +230,15 @@ const setInitialVolume = () => {
   playerVolumeEl.value = localStorage.getItem("volume") * 100;
 };
 
-const init = () => {
+const getTracksFromAPI = async () => {
+  const res = await fetch(`${API_URL}/api/music`);
+
+  return await res.json();
+};
+
+const init = async () => {
+  dataMusic = await getTracksFromAPI();
+
   renderCatalog(dataMusic);
   addHandlerOnTracks();
   checkCardsCount();
