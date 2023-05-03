@@ -58,6 +58,7 @@ const playAudio = (e) => {
   playerArtist.textContent = track.artist;
 
   audio.src = `${API_URL}/${track.mp3}`;
+  audio.preload = "auto";
   audio.play();
 
   activeTrack.classList.remove("track--pause");
