@@ -26,6 +26,9 @@ const playerPassedTimeEl = document.querySelector(".player__time--passed");
 const playerDurationTimeEl = document.querySelector(".player__time--total");
 const playerVolumeEl = document.querySelector(".player__volume-range");
 const playerProgressEl = document.querySelector(".player__progress-range");
+const playerTitle = document.querySelector(".player__track-title");
+const playerArtist = document.querySelector(".player__track-artist");
+
 // чтобы была динамическая подгрузка треков
 const trackCards = document.getElementsByClassName("track");
 
@@ -51,6 +54,9 @@ const playAudio = (e) => {
   } else {
     likeBtn.classList.remove("player__btn--like-fill");
   }
+
+  playerTitle.textContent = track.track;
+  playerArtist.textContent = track.artist;
 
   audio.src = `${API_URL}/${track.mp3}`;
   audio.play();
@@ -228,6 +234,7 @@ const showFavorites = () => {
 };
 
 const showInitialList = () => {
+  searchForm.search.value = "";
   renderCatalog(dataMusic);
   addHandlerOnTracks();
   checkCardsCount();
