@@ -58,6 +58,7 @@ const playAudio = (e) => {
   activeTrack.classList.remove("track--pause");
   playerEl.classList.add("player--active");
   playBtn.classList.add("player__btn--pause");
+  playerEl.dataset.id = id;
 
   const prevTrack =
     currentTrackInd === 0 ? playList.length - 1 : currentTrackInd - 1;
@@ -118,6 +119,12 @@ const createCard = (el) => {
   const card = document.createElement("a");
   card.href = "#";
   card.className = "catalog__track track";
+  if (playerEl.dataset.id === el.id) {
+    card.classList.add("track--active");
+    if (audio.paused) {
+      card.classList.add("track--pause");
+    }
+  }
   card.dataset.id = el.id;
   card.innerHTML = `
     <div class="track__cover-wrap">
