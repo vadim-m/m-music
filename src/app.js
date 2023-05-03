@@ -21,6 +21,7 @@ const muteBtn = document.querySelector(".player__btn--unmute");
 const catalogBtn = document.querySelector(".catalog__btn-all");
 const favoriteBtn = document.querySelector(".header__favorites-icon");
 const headerLogo = document.querySelector(".header__logo");
+const searchForm = document.querySelector(".search");
 const playerPassedTimeEl = document.querySelector(".player__time--passed");
 const playerDurationTimeEl = document.querySelector(".player__time--total");
 const playerVolumeEl = document.querySelector(".player__volume-range");
@@ -230,8 +231,25 @@ const setInitialVolume = () => {
   playerVolumeEl.value = localStorage.getItem("volume") * 100;
 };
 
+const searchTrack = async (e) => {
+  e.preventDefault();
+  playList = await getFoundTracks();
+
+  renderCatalog(playList);
+  checkCardsCount();
+  addHandlerOnTracks();
+};
+
 const getTracksFromAPI = async () => {
   const res = await fetch(`${API_URL}/api/music`);
+
+  return await res.json();
+};
+
+const getFoundTracks = async () => {
+  const res = await fetch(
+    `${API_URL}/api/music?search=${searchForm.search.value}`
+  );
 
   return await res.json();
 };
@@ -257,6 +275,7 @@ const init = async () => {
   playerProgressEl.addEventListener("input", updateProgress);
   playerVolumeEl.addEventListener("input", volumeControl);
   muteBtn.addEventListener("click", volumeMuteControl);
+  searchForm.addEventListener("submit", searchTrack);
 };
 
 init();
