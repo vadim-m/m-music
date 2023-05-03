@@ -72,7 +72,8 @@ body {
   flex-direction: column;
   overflow: hidden;
   background: url("./img/background/bg.jpg");
-  background-position: center;
+  background-position-y: top;
+  background-position-x: center;
   background-size: cover;
   background-attachment: fixed;
 }
