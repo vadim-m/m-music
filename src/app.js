@@ -11,13 +11,13 @@ const favoriteList = JSON.parse(localStorage.getItem("favorites")) ?? [];
 const audio = new Audio();
 
 const playerEl = document.querySelector(".player");
-const catalogEl = document.querySelector(".catalog__list");
 const playBtn = document.querySelector(".player__btn--play");
 const stopBtn = document.querySelector(".player__btn--stop");
 const prevBtn = document.querySelector(".player__btn--prev");
 const nextBtn = document.querySelector(".player__btn--next");
 const likeBtn = document.querySelector(".player__btn--like");
 const muteBtn = document.querySelector(".player__btn--unmute");
+const catalogEl = document.querySelector(".catalog__list");
 const catalogBtn = document.querySelector(".catalog__btn-all");
 const favoriteBtn = document.querySelector(".header__favorites-icon");
 const headerLogo = document.querySelector(".header__logo");
@@ -28,7 +28,6 @@ const playerVolumeEl = document.querySelector(".player__volume-range");
 const playerProgressEl = document.querySelector(".player__progress-range");
 const playerTitle = document.querySelector(".player__track-title");
 const playerArtist = document.querySelector(".player__track-artist");
-
 // чтобы была динамическая подгрузка треков
 const trackCards = document.getElementsByClassName("track");
 
@@ -151,6 +150,14 @@ const createCard = (el) => {
 
 const renderCatalog = (dataList) => {
   playList = [...dataList];
+
+  if (playList.length === 0) {
+    catalogEl.innerHTML = `
+    <p style="color: white; font-size: 2rem; text-align: center">
+      Not found
+    </p>`;
+    return;
+  }
   catalogEl.textContent = "";
   const listCard = dataList.map((item) => createCard(item));
 
@@ -158,6 +165,9 @@ const renderCatalog = (dataList) => {
 };
 
 const checkCardsCount = (i = 1) => {
+  if (!trackCards[0]) {
+    return;
+  }
   const cardHeight = trackCards[0].clientHeight;
   const catalogHeight = catalogEl.clientHeight;
 
@@ -226,6 +236,11 @@ const volumeMuteControl = () => {
   }
 };
 
+const setInitialVolume = () => {
+  audio.volume = localStorage.getItem("volume") ?? 1;
+  playerVolumeEl.value = localStorage.getItem("volume") * 100;
+};
+
 const showFavorites = () => {
   const data = dataMusic.filter((item) => favoriteList.includes(item.id));
   renderCatalog(data);
@@ -238,11 +253,6 @@ const showInitialList = () => {
   renderCatalog(dataMusic);
   addHandlerOnTracks();
   checkCardsCount();
-};
-
-const setInitialVolume = () => {
-  audio.volume = localStorage.getItem("volume") ?? 1;
-  playerVolumeEl.value = localStorage.getItem("volume") * 100;
 };
 
 const searchTrack = async (e) => {
@@ -268,14 +278,8 @@ const getFoundTracks = async () => {
   return await res.json();
 };
 
-const init = async () => {
-  dataMusic = await getTracksFromAPI();
-
-  renderCatalog(dataMusic);
+const addListeners = () => {
   addHandlerOnTracks();
-  checkCardsCount();
-  setInitialVolume();
-
   playBtn.addEventListener("click", pauseAudio);
   stopBtn.addEventListener("click", stopAudio);
   prevBtn.addEventListener("click", playAudio);
@@ -290,6 +294,15 @@ const init = async () => {
   playerVolumeEl.addEventListener("input", volumeControl);
   muteBtn.addEventListener("click", volumeMuteControl);
   searchForm.addEventListener("submit", searchTrack);
+};
+
+const init = async () => {
+  dataMusic = await getTracksFromAPI();
+
+  renderCatalog(dataMusic);
+  checkCardsCount();
+  setInitialVolume();
+  addListeners();
 };
 
 init();
